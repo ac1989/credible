@@ -7,17 +7,15 @@ import { theme } from '../../styles/theme';
 const StyledTextField = styled('div')(({ theme, width }) => ({
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: `${theme.spacingUnit * 2}px`,
-  marginRight: `${theme.spacingUnit * 2}px`,
   marginBottom: `${theme.spacingUnit * 2}px`,
   width: `${width}px`
 }));
 
-const TextField = ({ label, placeholder, width }) => {
+const TextField = ({ label, placeholder, width, input }) => {
   return (
     <StyledTextField width={width}>
       <InputLabel label={label} />
-      <Input placeholder={placeholder} />
+      <Input placeholder={placeholder} input={input} />
     </StyledTextField>
   );
 };

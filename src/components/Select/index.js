@@ -13,8 +13,8 @@ const StyledSelect = styled('select')(({ theme }) => ({
   }
 }));
 
-const Select = ({ children }) => {
-  return <StyledSelect>{children}</StyledSelect>;
+const Select = ({ children, onChange }) => {
+  return <StyledSelect onChange={onChange}>{children}</StyledSelect>;
 };
 
 export default Select;

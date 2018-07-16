@@ -8,11 +8,12 @@ import CreditCheck from './scenes/CreditCheck';
 injectGlobal(globalStyles);
 
 class App extends Component {
+  submit = values => console.log(values);
   render() {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <CreditCheck />
+          <CreditCheck onSubmit={this.submit} />
         </div>
       </ThemeProvider>
     );

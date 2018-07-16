@@ -7,8 +7,6 @@ const StyledFormControl = styled('div')(({ theme, width }) => ({
   width: `${width}px`,
   display: 'flex',
   flexDirection: 'column',
-  marginLeft: `${theme.spacingUnit * 2}px`,
-  marginRight: `${theme.spacingUnit * 2}px`,
   marginBottom: `${theme.spacingUnit * 2}px`
 }));
 

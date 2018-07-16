@@ -6,6 +6,8 @@ const StyledInput = styled('input')(({ theme }) => ({
   height: '40px',
   border: 'none',
   fontSize: '1.2rem',
+  background: 'white',
+  border: 'none',
   borderBottom: `1px solid ${theme.colours.formDefault}`,
   ':focus': {
     borderBottom: `2px solid ${theme.colours.formFocus}`
@@ -13,19 +15,9 @@ const StyledInput = styled('input')(({ theme }) => ({
 }));
 
 class Input extends Component {
-  state = { value: '' };
-
-  handleChange = e => {
-    this.setState({ value: e.target.value });
-  };
-
   render() {
     return (
-      <StyledInput
-        onChange={this.handleChange}
-        value={this.state.value}
-        placeholder={this.props.placeholder}
-      />
+      <StyledInput {...this.props.input} placeholder={this.props.placeholder} />
     );
   }
 }

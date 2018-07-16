@@ -1,91 +1,119 @@
 import React from 'react';
-import styled from 'react-emotion';
+import { Field, reduxForm } from 'redux-form';
+import {
+  normalizeDate,
+  normalizePostcode,
+  normalizeOnlyNum,
+  normalizeMoney
+} from './normalizations';
 import InputLabel from 'components/InputLabel';
 import Input from 'components/Input';
 import TextField from 'components/TextField';
 import FormControl from 'components/FormControl';
 import Select from 'components/Select';
 import Button from 'components/Button';
+import {
+  StyledForm,
+  StyledFormLabel,
+  StyledFormSection,
+  StyledFormTitle,
+  FlexRow
+} from './index.style';
 
-const StyledForm = styled('form')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  width: '656px',
-  margin: 'auto',
-  marginTop: `${theme.spacingUnit * 2}`,
-  padding: `${theme.spacingUnit * 2}px`,
-  boxShadow: `0 4px ${theme.spacingUnit * 3}px rgba(0, 0, 0, 0.4)`,
-  background: 'white'
-}));
+const renderTextField = ({ input, label, ...rest }) => (
+  <TextField label={label} input={input} {...rest} />
+);
 
-const StyledFormSection = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexWrap: 'wrap',
-  // border: '1px dotted red',
-  margin: `${theme.spacingUnit}px 0 ${theme.spacingUnit * 2}px 0`
-}));
+const renderSelect = ({ input, children }) => (
+  <Select {...input} children={children} />
+);
 
-const StyledFormTitle = styled('h2')(({ theme }) => ({
-  fontSize: '1.72rem',
-  color: theme.colours.formDefault,
-  marginBottom: `${theme.spacingUnit * 2}px`,
-  marginLeft: `${theme.spacingUnit * 2}px`
-}));
-
-const StyledFormLabel = styled('h3')(({ theme }) => ({
-  color: theme.colours.formDefault,
-  width: '100%',
-  fontSize: '1.44rem',
-  fontWeight: 'normal',
-  marginBottom: `${theme.spacingUnit * 2}`,
-  marginLeft: `${theme.spacingUnit * 2}px`
-}));
-
-const CreditCheck = () => {
+let CreditCheck = ({ handleSubmit }) => {
   return (
-    <div>
-      <StyledForm>
-        <StyledFormTitle>CREDIT CHECK</StyledFormTitle>
-        <StyledFormSection>
+    <StyledForm onSubmit={handleSubmit}>
+      <StyledFormTitle>CREDIT CHECK</StyledFormTitle>
+      <StyledFormSection>
+        <FlexRow>
           <FormControl width={88}>
             <InputLabel label={'Title'} />
-            <Select>
-              <option />
-              <option>Mr</option>
-              <option>Miss</option>
-              <option>Ms</option>
-              <option>Mx</option>
-            </Select>
+            <Field name="title" component={renderSelect}>
+              <option value="" />
+              <option value="Mr">Mr</option>
+              <option value="Miss">Miss</option>
+              <option value="Ms">Ms</option>
+              <option value="Mx">Mx</option>
+            </Field>
           </FormControl>
-          <TextField label={'First Name'} width={220} />
-          <TextField label={'Last Name'} width={220} />
-          <TextField label={'Date of Birth'} placeholder={'DD-MM-YYYY'} />
-        </StyledFormSection>
-        <StyledFormSection>
-          <StyledFormLabel>Address</StyledFormLabel>
-
-          <TextField label={'Postcode'} width={280} />
-          <TextField label={'House Number'} width={280} />
-        </StyledFormSection>
-        <StyledFormSection>
-          <StyledFormLabel>Employment</StyledFormLabel>
-          <TextField label={'Annual Income'} width={280} />
+          <Field
+            name="firstName"
+            component={renderTextField}
+            label="First Name"
+          />
+          <Field
+            name="lastName"
+            component={renderTextField}
+            label="Last Name"
+          />
+        </FlexRow>
+        <FlexRow>
+          <Field
+            name="dateOfBirth"
+            component={renderTextField}
+            label="Date of Birth"
+            placeholder="DD-MM-YYYY"
+            normalize={normalizeDate}
+          />
+        </FlexRow>
+      </StyledFormSection>
+      <StyledFormSection>
+        <StyledFormLabel>Address</StyledFormLabel>
+        <FlexRow>
+          <Field
+            name="postcode"
+            component={renderTextField}
+            label="Postcode"
+            width={280}
+            normalize={normalizePostcode}
+          />
+          <Field
+            name="houseNumber"
+            component={renderTextField}
+            label="House Number"
+            width={280}
+            normalize={normalizeOnlyNum}
+          />
+        </FlexRow>
+      </StyledFormSection>
+      <StyledFormSection>
+        <StyledFormLabel>Employment</StyledFormLabel>
+        <FlexRow>
+          <Field
+            name="annualIncome"
+            component={renderTextField}
+            label="Annual Income"
+            width={280}
+            normalize={normalizeMoney}
+          />
           <FormControl width={280}>
             <InputLabel label={'Employment Status'} />
-            <Select>
-              <option />
-              <option>Full Time Employment</option>
-              <option>Part Time Employment</option>
-              <option>Student</option>
-              <option>Unemployed</option>
-            </Select>
+            <Field name="employmentStatus" component={renderSelect}>
+              <option value="" />
+              <option value="fullTime">Full Time Employment</option>
+              <option value="partTime">Part Time Employment</option>
+              <option value="student">Student</option>
+              <option value="unemployed">Unemployed</option>
+            </Field>
           </FormControl>
-        </StyledFormSection>
-        <br />
-        <Button type="submit" text={'CHECK ELIGIBILITY'} />
-      </StyledForm>
-    </div>
+        </FlexRow>
+      </StyledFormSection>
+      <br />
+      <Button type="submit" text={'CHECK ELIGIBILITY'} />
+    </StyledForm>
   );
 };
+
+CreditCheck = reduxForm({
+  form: 'credit'
+})(CreditCheck);
 
 export default CreditCheck;
