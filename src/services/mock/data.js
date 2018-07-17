@@ -33,6 +33,7 @@ export const customers = [
 
 export const cards = [
   {
+    id: 625,
     name: 'Student Life Card',
     apr: '18.9%',
     balance_transfer_offer_duration: 0,
@@ -40,6 +41,7 @@ export const cards = [
     credit_gbp: 1200
   },
   {
+    id: 7001,
     name: 'Anywhere Card',
     apr: '33.9%',
     balance_transfer_offer_duration: 0,
@@ -47,6 +49,7 @@ export const cards = [
     credit_gbp: 300
   },
   {
+    id: 33,
     name: 'Liquid Card',
     apr: '33.9%',
     balance_transfer_offer_duration: 12,

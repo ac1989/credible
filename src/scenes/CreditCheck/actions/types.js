@@ -1,0 +1,2 @@
+export const FETCH_ALL_CARDS = 'FETCH_ALL_CARDS';
+export const TOGGLE_CARD_SELECT = 'TOGGLE_CARD_SELECT';

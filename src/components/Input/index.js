@@ -7,7 +7,7 @@ const StyledInput = styled('input')(({ theme }) => ({
   border: 'none',
   fontSize: '1.2rem',
   background: 'white',
-  border: 'none',
+  outline: 'none',
   borderBottom: `1px solid ${theme.colours.formDefault}`,
   ':focus': {
     borderBottom: `2px solid ${theme.colours.formFocus}`
