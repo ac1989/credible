@@ -38,7 +38,11 @@ export const cards = [
     apr: '18.9%',
     balance_transfer_offer_duration: 0,
     purchase_offer_duration: 0,
-    credit_gbp: 1200
+    credit_gbp: 1200,
+    criteria: {
+      annual_income: 0,
+      employment_status: 'student'
+    }
   },
   {
     id: 7001,
@@ -46,7 +50,11 @@ export const cards = [
     apr: '33.9%',
     balance_transfer_offer_duration: 0,
     purchase_offer_duration: 0,
-    credit_gbp: 300
+    credit_gbp: 300,
+    criteria: {
+      annual_income: 0,
+      employment_status: 'any'
+    }
   },
   {
     id: 33,
@@ -54,6 +62,10 @@ export const cards = [
     apr: '33.9%',
     balance_transfer_offer_duration: 12,
     purchase_offer_duration: 6,
-    credit_gbp: 3000
+    credit_gbp: 3000,
+    criteria: {
+      annual_income: 15000,
+      employment_status: 'any'
+    }
   }
 ];

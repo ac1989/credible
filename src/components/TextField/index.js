@@ -14,7 +14,7 @@ const StyledTextField = styled('div')(({ theme, width }) => ({
 const TextField = ({ label, placeholder, width, input }) => {
   return (
     <StyledTextField width={width}>
-      <InputLabel label={label} />
+      {label && <InputLabel label={label} />}
       <Input placeholder={placeholder} input={input} />
     </StyledTextField>
   );

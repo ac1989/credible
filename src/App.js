@@ -9,13 +9,12 @@ import CardSelection from './scenes/CreditCheck/CardSelection';
 injectGlobal(globalStyles);
 
 class App extends Component {
-  submit = values => console.log(values);
   render() {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          <CardSelection />
-          {/* <CreditCheck onSubmit={this.submit} /> */}
+          {/* <CardSelection /> */}
+          <CreditCheck />
         </div>
       </ThemeProvider>
     );

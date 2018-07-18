@@ -4,7 +4,6 @@ import { theme } from '../../styles/theme';
 
 const StyledButton = styled('button')(({ theme }) => ({
   border: 'none',
-  borderRadius: '16px',
   color: 'white',
   background: '#388e2c',
   fontSize: '1.2rem',

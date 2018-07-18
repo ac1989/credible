@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
+import { getFormValues } from 'redux-form';
 import CardItem from './CardItem';
 
 class CardSelection extends Component {
   state = {
     selectedCardIds: []
   };
-
-  componentDidMount() {
-    this.props.fetchAllCards();
-  }
 
   toggleSelect = (cardId, e) => {
     this.setState(state => {
@@ -26,9 +23,8 @@ class CardSelection extends Component {
     });
   };
 
-  calculateTotal = () => {
+  calculateTotal = cards => {
     const { selectedCardIds } = this.state;
-    const { cards } = this.props;
     let total = 0;
     if (selectedCardIds.length < 1) {
       return total;
@@ -40,27 +36,43 @@ class CardSelection extends Component {
     return total;
   };
 
-  render() {
-    const { cards } = this.props;
-    return (
-      <div>
-        <h2>You are eligible for: </h2>
-        {cards.map(card => (
+  renderEligibleCards = (cards, criteria) => {
+    // TODO:
+    // This runs every time a card is selected maybe fix that.
+    let annual_income = parseInt(criteria.annual_income.replace(/,/g, ''), 10);
+
+    return cards.map(card => {
+      let incomeEligible = card.criteria.annual_income <= annual_income;
+      let employmentStatusEligible =
+        card.criteria.employment_status === criteria.employment_status ||
+        card.criteria.employment_status === 'any';
+
+      if (incomeEligible && employmentStatusEligible) {
+        return (
           <CardItem
             key={card.name}
             card={card}
             handleChange={this.toggleSelect}
             isSelected={this.state.selectedCardIds.find(id => id === card.id)}
           />
-        ))}
-        <h2>Total Credit: {this.calculateTotal()}</h2>
-        <pre>{JSON.stringify(this.state.selectedCardIds, null, 2)}</pre>
+        );
+      }
+    });
+  };
+
+  render() {
+    const { cards, creditCheckValues } = this.props;
+    console.log(cards);
+    return (
+      <div>
+        <h2>You are eligible for: </h2>
+        <div>{this.renderEligibleCards(cards, creditCheckValues)}</div>
+        <h2>Total Credit: £{this.calculateTotal(cards)}</h2>
       </div>
     );
   }
 }
 
-export default connect(
-  ({ cards }) => ({ cards }),
-  actions
-)(CardSelection);
+export default connect(state => ({
+  creditCheckValues: getFormValues('creditCheck')(state)
+}))(CardSelection);

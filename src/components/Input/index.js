@@ -3,14 +3,14 @@ import styled from 'react-emotion';
 
 const StyledInput = styled('input')(({ theme }) => ({
   width: '100%',
-  height: '40px',
+  height: `${20 + theme.spacingUnit * 2}px`,
   border: 'none',
   fontSize: '1.2rem',
   background: 'white',
   outline: 'none',
-  borderBottom: `1px solid ${theme.colours.formDefault}`,
+  border: `1px solid ${theme.colours.formDefault}`,
   ':focus': {
-    borderBottom: `2px solid ${theme.colours.formFocus}`
+    outline: `2px solid ${theme.colours.formFocus}`
   }
 }));
 

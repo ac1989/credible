@@ -1,119 +1,56 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import {
-  normalizeDate,
-  normalizePostcode,
-  normalizeOnlyNum,
-  normalizeMoney
-} from './normalizations';
-import InputLabel from 'components/InputLabel';
-import Input from 'components/Input';
-import TextField from 'components/TextField';
-import FormControl from 'components/FormControl';
-import Select from 'components/Select';
-import Button from 'components/Button';
-import {
-  StyledForm,
-  StyledFormLabel,
-  StyledFormSection,
-  StyledFormTitle,
-  FlexRow
-} from './index.style';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Transition, animated } from 'react-spring';
+import * as actions from './actions';
+import CreditCheckForm from './CreditCheckForm';
+import CardSelection from './CardSelection';
+import { put } from 'redux-saga/effects';
 
-const renderTextField = ({ input, label, ...rest }) => (
-  <TextField label={label} input={input} {...rest} />
-);
+class CreditCheck extends Component {
+  submit = values => {
+    this.props.fetchAllCards();
+  };
 
-const renderSelect = ({ input, children }) => (
-  <Select {...input} children={children} />
-);
+  pages = {
+    FORM: style => (
+      <animated.div style={{ ...style, position: 'absolute' }}>
+        <CreditCheckForm onSubmit={this.submit} />
+      </animated.div>
+    ),
+    FETCHING_CARDS: style => (
+      <animated.div style={{ ...style, position: 'absolute' }}>
+        <h1>Loading Cards</h1>
+      </animated.div>
+    ),
+    CARD_SELECTION: style => (
+      <animated.div style={{ ...style, position: 'absolute' }}>
+        <CardSelection cards={this.props.creditCheck.cards} />
+      </animated.div>
+    )
+  };
 
-let CreditCheck = ({ handleSubmit }) => {
-  return (
-    <StyledForm onSubmit={handleSubmit}>
-      <StyledFormTitle>CREDIT CHECK</StyledFormTitle>
-      <StyledFormSection>
-        <FlexRow>
-          <FormControl width={88}>
-            <InputLabel label={'Title'} />
-            <Field name="title" component={renderSelect}>
-              <option value="" />
-              <option value="Mr">Mr</option>
-              <option value="Miss">Miss</option>
-              <option value="Ms">Ms</option>
-              <option value="Mx">Mx</option>
-            </Field>
-          </FormControl>
-          <Field
-            name="firstName"
-            component={renderTextField}
-            label="First Name"
-          />
-          <Field
-            name="lastName"
-            component={renderTextField}
-            label="Last Name"
-          />
-        </FlexRow>
-        <FlexRow>
-          <Field
-            name="dateOfBirth"
-            component={renderTextField}
-            label="Date of Birth"
-            placeholder="DD-MM-YYYY"
-            normalize={normalizeDate}
-          />
-        </FlexRow>
-      </StyledFormSection>
-      <StyledFormSection>
-        <StyledFormLabel>Address</StyledFormLabel>
-        <FlexRow>
-          <Field
-            name="postcode"
-            component={renderTextField}
-            label="Postcode"
-            width={280}
-            normalize={normalizePostcode}
-          />
-          <Field
-            name="houseNumber"
-            component={renderTextField}
-            label="House Number"
-            width={280}
-            normalize={normalizeOnlyNum}
-          />
-        </FlexRow>
-      </StyledFormSection>
-      <StyledFormSection>
-        <StyledFormLabel>Employment</StyledFormLabel>
-        <FlexRow>
-          <Field
-            name="annualIncome"
-            component={renderTextField}
-            label="Annual Income"
-            width={280}
-            normalize={normalizeMoney}
-          />
-          <FormControl width={280}>
-            <InputLabel label={'Employment Status'} />
-            <Field name="employmentStatus" component={renderSelect}>
-              <option value="" />
-              <option value="fullTime">Full Time Employment</option>
-              <option value="partTime">Part Time Employment</option>
-              <option value="student">Student</option>
-              <option value="unemployed">Unemployed</option>
-            </Field>
-          </FormControl>
-        </FlexRow>
-      </StyledFormSection>
-      <br />
-      <Button type="submit" text={'CHECK ELIGIBILITY'} />
-    </StyledForm>
-  );
-};
+  render() {
+    const {
+      creditCheck: { status, cards }
+    } = this.props;
+    return (
+      <div style={{ width: '658px', margin: 'auto' }}>
+        <Transition
+          native
+          from={{ opacity: 0 }}
+          enter={{ opacity: 1 }}
+          leave={{ opacity: 0 }}
+        >
+          {this.pages[status]}
+        </Transition>
+      </div>
+    );
+  }
+}
 
-CreditCheck = reduxForm({
-  form: 'credit'
-})(CreditCheck);
+const mapStateToProps = ({ creditCheck }) => ({ creditCheck });
 
-export default CreditCheck;
+export default connect(
+  mapStateToProps,
+  actions
+)(CreditCheck);
