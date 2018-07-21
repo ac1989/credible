@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from './actions';
-import { getFormValues } from 'redux-form';
-import CardItem from './CardItem';
+import styled from 'react-emotion';
+import CardList from './CardList';
 
-class CardSelection extends Component {
+const StyledWrapper = styled('div')(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '658px'
+}));
+
+export default class CardSelection extends Component {
   state = {
     selectedCardIds: []
   };
@@ -23,7 +28,7 @@ class CardSelection extends Component {
     });
   };
 
-  calculateTotal = cards => {
+  calculateTotalCredit = cards => {
     const { selectedCardIds } = this.state;
     let total = 0;
     if (selectedCardIds.length < 1) {
@@ -36,43 +41,18 @@ class CardSelection extends Component {
     return total;
   };
 
-  renderEligibleCards = (cards, criteria) => {
-    // TODO:
-    // This runs every time a card is selected maybe fix that.
-    let annual_income = parseInt(criteria.annual_income.replace(/,/g, ''), 10);
-
-    return cards.map(card => {
-      let incomeEligible = card.criteria.annual_income <= annual_income;
-      let employmentStatusEligible =
-        card.criteria.employment_status === criteria.employment_status ||
-        card.criteria.employment_status === 'any';
-
-      if (incomeEligible && employmentStatusEligible) {
-        return (
-          <CardItem
-            key={card.name}
-            card={card}
-            handleChange={this.toggleSelect}
-            isSelected={this.state.selectedCardIds.find(id => id === card.id)}
-          />
-        );
-      }
-    });
-  };
-
   render() {
-    const { cards, creditCheckValues } = this.props;
-    console.log(cards);
+    const { cards } = this.props;
     return (
-      <div>
+      <StyledWrapper>
         <h2>You are eligible for: </h2>
-        <div>{this.renderEligibleCards(cards, creditCheckValues)}</div>
-        <h2>Total Credit: £{this.calculateTotal(cards)}</h2>
-      </div>
+        <CardList
+          cards={cards}
+          selectedCardIds={this.state.selectedCardIds}
+          handleChange={this.toggleSelect}
+        />
+        <h2>Total Credit: £{this.calculateTotalCredit(cards)}</h2>
+      </StyledWrapper>
     );
   }
 }
-
-export default connect(state => ({
-  creditCheckValues: getFormValues('creditCheck')(state)
-}))(CardSelection);

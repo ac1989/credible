@@ -1,29 +1,63 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'react-emotion';
+import { mq } from 'styles/breakpoints';
 import { Transition, animated } from 'react-spring';
 import * as actions from './actions';
 import CreditCheckForm from './CreditCheckForm';
+import TriDotLoader from 'components/TriDotLoader';
 import CardSelection from './CardSelection';
-import { put } from 'redux-saga/effects';
+
+const StyledRoot = styled('div')(({ theme }) =>
+  mq({
+    margin: 'auto',
+    position: 'relative',
+    width: ['280px', '658px'],
+    background: 'blue'
+  })
+);
+
+const animStyles = styles => ({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  left: 0,
+  bottom: 0,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  ...styles
+});
 
 class CreditCheck extends Component {
   submit = values => {
-    this.props.fetchAllCards();
+    console.log('submit');
+    this.props.fetchEligibleCards(values);
   };
 
   pages = {
     FORM: style => (
-      <animated.div style={{ ...style, position: 'absolute' }}>
+      <animated.div style={animStyles(style)}>
         <CreditCheckForm onSubmit={this.submit} />
       </animated.div>
     ),
     FETCHING_CARDS: style => (
-      <animated.div style={{ ...style, position: 'absolute' }}>
-        <h1>Loading Cards</h1>
+      <animated.div
+        style={{
+          ...animStyles(style),
+          height: '600px'
+        }}
+      >
+        <TriDotLoader />
       </animated.div>
     ),
     CARD_SELECTION: style => (
-      <animated.div style={{ ...style, position: 'absolute' }}>
+      <animated.div
+        style={{
+          ...animStyles(style),
+          height: '600px'
+        }}
+      >
         <CardSelection cards={this.props.creditCheck.cards} />
       </animated.div>
     )
@@ -31,19 +65,19 @@ class CreditCheck extends Component {
 
   render() {
     const {
-      creditCheck: { status, cards }
+      creditCheck: { status }
     } = this.props;
     return (
-      <div style={{ width: '658px', margin: 'auto' }}>
+      <StyledRoot>
         <Transition
           native
           from={{ opacity: 0 }}
-          enter={{ opacity: 1 }}
-          leave={{ opacity: 0 }}
+          enter={{ opacity: 1, transform: 'scale(1)' }}
+          leave={{ opacity: 0, transform: 'scale(1.1)' }}
         >
           {this.pages[status]}
         </Transition>
-      </div>
+      </StyledRoot>
     );
   }
 }

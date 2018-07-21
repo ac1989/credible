@@ -2,7 +2,6 @@ import React from 'react';
 import InputLabel from 'components/InputLabel';
 import Input from 'components/Input';
 import styled from 'react-emotion';
-import { theme } from '../../styles/theme';
 
 const StyledTextField = styled('div')(({ theme, width }) => ({
   display: 'flex',
@@ -11,11 +10,12 @@ const StyledTextField = styled('div')(({ theme, width }) => ({
   width: `${width}px`
 }));
 
-const TextField = ({ label, placeholder, width, input }) => {
+const TextField = ({ label, placeholder, width, input, error }) => {
   return (
     <StyledTextField width={width}>
       {label && <InputLabel label={label} />}
-      <Input placeholder={placeholder} input={input} />
+      <Input placeholder={placeholder} input={input} error={error} />
+      {error && <span style={{ fontSize: '14px', color: 'red' }}>{error}</span>}
     </StyledTextField>
   );
 };

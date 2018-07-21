@@ -13,7 +13,6 @@ class App extends Component {
     return (
       <ThemeProvider theme={theme}>
         <div className="App">
-          {/* <CardSelection /> */}
           <CreditCheck />
         </div>
       </ThemeProvider>

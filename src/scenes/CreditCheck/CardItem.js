@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'react-emotion';
 
-const StyledRoot = styled('div')(({ isSelected }) => ({
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-around',
-  width: '380px',
-  height: '160px',
-  marginBottom: '16px',
-  borderBottom: '4px solid slategrey',
-  background: isSelected ? 'aquamarine' : 'white'
+const StyledWrapper = styled('tr')(({ theme, isSelected }) => ({
+  background: isSelected ? '#9de89f;' : 'white',
+  td: {
+    borderBottom: isSelected
+      ? `1px solid ${theme.colours.formFocus}`
+      : '1px solid white'
+  }
+}));
+
+const StyledCell = styled('td')(({ theme, align }) => ({
+  padding: `${theme.spacingUnit}`,
+  textAlign: align
 }));
 
 const StyledCheckbox = styled('input')({
-  position: 'absolute',
-  top: '16px',
-  right: '16px'
+  // TODO: Style Me!
 });
 
 const CardItem = ({
@@ -25,29 +25,28 @@ const CardItem = ({
   card: {
     id,
     name,
-    apr,
+    apr_percent,
     balance_transfer_offer_duration,
     purchase_offer_duration,
     credit_gbp
   }
 }) => {
   return (
-    <StyledRoot isSelected={isSelected}>
-      <StyledCheckbox
-        type="checkbox"
-        onChange={() => {
-          handleChange(id);
-        }}
-      />
-      <h3>{name}</h3>
-      <h4>Credit: £{credit_gbp}</h4>
-      <p>Apr: {apr}</p>
-      <p>
-        Balance Offer Transfer Duration: {balance_transfer_offer_duration}{' '}
-        Months
-      </p>
-      <p>Purchase Offer Duration: {purchase_offer_duration} Months</p>
-    </StyledRoot>
+    <StyledWrapper isSelected={isSelected}>
+      <StyledCell>
+        <StyledCheckbox
+          type="checkbox"
+          onChange={() => {
+            handleChange(id);
+          }}
+        />
+      </StyledCell>
+      <StyledCell>{name}</StyledCell>
+      <StyledCell align="right">{credit_gbp}</StyledCell>
+      <StyledCell align="right">{apr_percent}%</StyledCell>
+      <StyledCell>{balance_transfer_offer_duration} Months</StyledCell>
+      <StyledCell>{purchase_offer_duration} Months</StyledCell>
+    </StyledWrapper>
   );
 };
 

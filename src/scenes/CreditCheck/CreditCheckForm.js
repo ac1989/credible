@@ -7,6 +7,7 @@ import {
   normalizeMM,
   normalizeYYYY
 } from './normalizations';
+import { validate } from './helpers';
 import InputLabel from 'components/InputLabel';
 import TextField from 'components/TextField';
 import FormControl from 'components/FormControl';
@@ -16,17 +17,30 @@ import {
   StyledForm,
   StyledFormLabel,
   StyledFormSection,
-  StyledFormTitle,
+  // StyledFormTitle,
   FlexRow
 } from './index.style';
 
-const renderTextField = ({ input, label, ...rest }) => (
-  <TextField label={label} input={input} {...rest} />
+const renderTextField = ({
+  input,
+  label,
+  meta: { touched, error },
+  ...rest
+}) => (
+  <TextField
+    label={label}
+    input={input}
+    touched={touched}
+    error={touched ? error : null}
+    {...rest}
+  />
 );
 
-const renderSelect = ({ input, children }) => (
-  <Select {...input} children={children} />
-);
+const renderSelect = ({ input, children, meta: { touched, error } }) => {
+  return (
+    <Select {...input} children={children} error={touched ? error : null} />
+  );
+};
 
 let CreditCheckForm = ({ handleSubmit }) => {
   return (
@@ -47,20 +61,20 @@ let CreditCheckForm = ({ handleSubmit }) => {
         </FlexRow>
         <FlexRow>
           <Field
-            name="firstName"
+            name="first_name"
             component={renderTextField}
             label="First Name"
             width={280}
           />
           <Field
-            name="lastName"
+            name="last_name"
             component={renderTextField}
             label="Last Name"
             width={280}
           />
         </FlexRow>
         <InputLabel label={'Date of Birth'} />
-        <FlexRow style={{ width: '280px' }}>
+        <FlexRow width={280}>
           <Field
             name="dOBDay"
             component={renderTextField}
@@ -79,7 +93,7 @@ let CreditCheckForm = ({ handleSubmit }) => {
             name="dOBYear"
             component={renderTextField}
             placeholder="YYYY"
-            width={120}
+            width={128}
             normalize={normalizeYYYY}
           />
         </FlexRow>
@@ -95,7 +109,7 @@ let CreditCheckForm = ({ handleSubmit }) => {
             normalize={normalizePostcode}
           />
           <Field
-            name="houseNumber"
+            name="house_number"
             component={renderTextField}
             label="House Number"
             width={280}
@@ -133,9 +147,10 @@ let CreditCheckForm = ({ handleSubmit }) => {
 
 CreditCheckForm = reduxForm({
   form: 'creditCheck',
+  // validate,
   destroyOnUnmount: false,
   initialValues: {
-    annual_income: '40000',
+    annual_income: '15000',
     employment_status: 'student'
   }
 })(CreditCheckForm);

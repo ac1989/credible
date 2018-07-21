@@ -1,0 +1,1 @@
+describe('Credit Check saga', () => {});
