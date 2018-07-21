@@ -71,7 +71,6 @@ class CardList extends Component {
 
   renderTableHeaders = () => {
     return Object.keys(dataKeysToHeaderTexts).map(data_key => {
-      console.log(data_key);
       return (
         <StyledTableHeader
           key={data_key}
