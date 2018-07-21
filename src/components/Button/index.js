@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'react-emotion';
-import { theme } from '../../styles/theme';
 
 const StyledButton = styled('button')(({ theme }) => ({
   border: 'none',

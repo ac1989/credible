@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'react-emotion';
-import { theme } from '../../styles/theme';
 
 const StyledLabel = styled('label')(({ theme }) => ({
   color: '#7a7a7a',

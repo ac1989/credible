@@ -18,6 +18,7 @@ const eligibleCards = criteria => {
     if (incomeEligible && employmentStatusEligible) {
       return card;
     }
+    return false;
   });
 };
 

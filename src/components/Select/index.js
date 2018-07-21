@@ -5,7 +5,6 @@ const StyledSelect = styled('select')(({ theme, error }) => ({
   height: `${20 + theme.spacingUnit * 2}px`,
   fontSize: '1.2rem',
   background: 'white',
-  border: 'none',
   border: `1px solid ${theme.colours.formDefault}`,
   outline: error ? `2px solid ${theme.colours.formError}` : 'none',
   ':focus': {

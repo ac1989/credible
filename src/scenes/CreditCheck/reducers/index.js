@@ -1,5 +1,4 @@
 import * as TYPES from '../actions/types';
-import { cards } from 'services/mock/data';
 
 const initialState = {
   status: 'FORM',

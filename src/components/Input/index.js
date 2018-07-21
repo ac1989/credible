@@ -6,7 +6,6 @@ const StyledInput = styled('input')(({ theme, error }) => ({
   height: `${20 + theme.spacingUnit * 2}px`,
   fontSize: '1.2rem',
   background: 'white',
-  outline: 'none',
   paddingLeft: `${theme.spacingUnit}`,
   border: `1px solid ${theme.colours.formDefault}`,
   outline: error ? `2px solid ${theme.colours.formError}` : 'none',
