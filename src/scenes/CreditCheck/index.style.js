@@ -5,7 +5,7 @@ export const StyledForm = styled('form')(({ theme }) =>
   mq({
     display: 'flex',
     flexDirection: 'column',
-    width: ['100%'],
+    width: ['100%', '658px'],
     margin: 'auto',
     padding: [`${theme.spacingUnit * 4}px 0`, `${theme.spacingUnit * 4}px`]
   })

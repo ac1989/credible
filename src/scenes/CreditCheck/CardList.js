@@ -5,12 +5,33 @@ import CardItem from './CardItem';
 
 const StyledTable = styled('table')(({}) =>
   mq({
-    width: ['100%', '600px', '920px']
+    width: ['100%', '600px', '920px'],
+    thead: {
+      display: ['block', 'table-header-group']
+    },
+    tbody: {
+      display: ['block', 'table-row-group']
+    },
+    th: {
+      display: ['block', 'table-cell']
+    },
+    td: {
+      display: ['block', 'table-cell']
+    },
+    tr: {
+      display: ['block', 'table-row']
+    },
+    'thead tr': {
+      position: ['absolute', 'relative'],
+      top: ['-9999px', '0'],
+      left: ['-9999px', '0']
+    }
   })
 );
 
 const StyledTableHeader = styled('th')(({ theme, data_key, sort_by }) =>
   mq({
+    display: ['none', 'table-cell'],
     color:
       data_key === sort_by
         ? `${theme.colours.formFocus}`
@@ -25,8 +46,8 @@ const dataKeysToHeaderTexts = {
   name: 'Card',
   credit_gbp: 'Credit (£)',
   apr_percent: 'APR',
-  balance_transfer_offer_duration: 'B.T.O.D',
-  purchase_offer_duration: 'Purchase Offer Duration'
+  balance_transfer_offer_duration: 'Balance Transfer',
+  purchase_offer_duration: 'Purchase Offer'
 };
 
 class CardList extends Component {
@@ -90,7 +111,6 @@ class CardList extends Component {
 
   render() {
     const { cards, selectedCardIds, handleChange } = this.props;
-    const { sort_by, sort_direction } = this.state;
     return (
       <StyledTable>
         <thead>

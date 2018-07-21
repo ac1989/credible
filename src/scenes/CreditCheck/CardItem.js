@@ -1,19 +1,56 @@
 import React from 'react';
 import styled from 'react-emotion';
+import { mq } from 'styles/breakpoints';
 
-const StyledWrapper = styled('tr')(({ theme, isSelected }) => ({
-  background: isSelected ? '#9de89f;' : 'white',
-  td: {
-    borderBottom: isSelected
-      ? `1px solid ${theme.colours.formFocus}`
-      : '1px solid white'
-  }
-}));
+const StyledWrapper = styled('tr')(({ theme, isSelected }) =>
+  mq({
+    width: ['280px', '100%'],
+    position: 'relative',
+    // display: ['flex', 'table-row'],
+    // flexDirection: 'column',
+    background: isSelected ? '#9de89f;' : 'white',
+    marginBottom: [`${theme.spacingUnit}`, 0],
+    td: {
+      position: 'relative',
+      paddingLeft: ['50%', 0]
+    },
+    'td:before': {
+      display: ['block', 'none'],
+      position: 'absolute',
+      /* Top/left values mimic padding */
+      top: '6px',
+      left: '6px',
+      width: '45%',
+      paddingRight: '10px',
+      whiteSpace: 'nowrap'
+    },
+    'td:nth-of-type(1)': {
+      display: ['none', 'table-cell']
+    },
+    'td:nth-of-type(2):before': {
+      content: ['"Card"']
+    },
+    'td:nth-of-type(3):before': {
+      content: '"Credit (£)"'
+    },
+    'td:nth-of-type(4):before': {
+      content: '"APR"'
+    },
+    'td:nth-of-type(5):before': {
+      content: '"B.T.O.D"'
+    },
+    'td:nth-of-type(6):before': {
+      content: '"P.O.D"'
+    }
+  })
+);
 
-const StyledCell = styled('td')(({ theme, align }) => ({
-  padding: `${theme.spacingUnit}`,
-  textAlign: align
-}));
+const StyledCell = styled('td')(({ theme, align }) =>
+  mq({
+    padding: `${theme.spacingUnit}`,
+    textAlign: ['left', align]
+  })
+);
 
 const StyledCheckbox = styled('input')({
   // TODO: Style Me!

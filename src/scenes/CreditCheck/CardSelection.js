@@ -3,10 +3,10 @@ import styled from 'react-emotion';
 import CardList from './CardList';
 
 const StyledWrapper = styled('div')(({ theme }) => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  width: '658px'
+  // display: 'flex',
+  // flexDirection: 'column',
+  // alignItems: 'center',
+  width: '100%'
 }));
 
 export default class CardSelection extends Component {

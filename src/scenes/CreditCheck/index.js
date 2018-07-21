@@ -12,7 +12,7 @@ const StyledRoot = styled('div')(({ theme }) =>
   mq({
     margin: 'auto',
     position: 'relative',
-    width: ['280px', '658px'],
+    width: ['280px', '658px', '920px'],
     background: 'blue'
   })
 );
@@ -55,7 +55,7 @@ class CreditCheck extends Component {
       <animated.div
         style={{
           ...animStyles(style),
-          height: '600px'
+          display: 'block'
         }}
       >
         <CardSelection cards={this.props.creditCheck.cards} />
