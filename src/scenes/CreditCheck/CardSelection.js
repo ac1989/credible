@@ -3,10 +3,19 @@ import styled from 'react-emotion';
 import CardList from './CardList';
 
 const StyledWrapper = styled('div')(({ theme }) => ({
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
   width: '100%'
+}));
+
+const StyledH2 = styled('h2')(({ theme }) => ({
+  color: theme.colours.formDefault
+}));
+
+const StyledSpan = styled('span')(({ theme }) => ({
+  color: theme.colours.formFocus
 }));
 
 export default class CardSelection extends Component {
@@ -45,13 +54,16 @@ export default class CardSelection extends Component {
     const { cards } = this.props;
     return (
       <StyledWrapper>
-        <h2>You are eligible for: </h2>
+        <StyledH2>You are eligible for: </StyledH2>
         <CardList
           cards={cards}
           selectedCardIds={this.state.selectedCardIds}
           handleChange={this.toggleSelect}
         />
-        <h2>Total Credit: £{this.calculateTotalCredit(cards)}</h2>
+        <StyledH2>
+          Total Credit:{' '}
+          <StyledSpan>£{this.calculateTotalCredit(cards)}</StyledSpan>
+        </StyledH2>
       </StyledWrapper>
     );
   }

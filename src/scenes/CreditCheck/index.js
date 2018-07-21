@@ -10,6 +10,7 @@ import CardSelection from './CardSelection';
 
 const StyledRoot = styled('div')(({ theme }) =>
   mq({
+    position: 'relative',
     margin: 'auto',
     position: 'relative',
     width: ['280px', '658px', '920px'],

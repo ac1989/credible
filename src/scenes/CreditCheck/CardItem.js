@@ -12,7 +12,7 @@ const StyledWrapper = styled('tr')(({ theme, isSelected }) =>
     marginBottom: [`${theme.spacingUnit}`, 0],
     td: {
       position: 'relative',
-      paddingLeft: ['50%', 0]
+      paddingLeft: ['50%', `${theme.spacingUnit}`]
     },
     'td:before': {
       display: ['block', 'none'],
@@ -24,37 +24,33 @@ const StyledWrapper = styled('tr')(({ theme, isSelected }) =>
       paddingRight: '10px',
       whiteSpace: 'nowrap'
     },
-    'td:nth-of-type(1)': {
-      display: ['none', 'table-cell']
-    },
-    'td:nth-of-type(2):before': {
+    'td:nth-of-type(1):before': {
       content: ['"Card"']
     },
-    'td:nth-of-type(3):before': {
+    'td:nth-of-type(2):before': {
       content: '"Credit (£)"'
     },
-    'td:nth-of-type(4):before': {
+    'td:nth-of-type(3):before': {
       content: '"APR"'
     },
-    'td:nth-of-type(5):before': {
+    'td:nth-of-type(4):before': {
       content: '"B.T.O.D"'
     },
-    'td:nth-of-type(6):before': {
+    'td:nth-of-type(5):before': {
       content: '"P.O.D"'
+    },
+    'td:nth-of-type(6)': {
+      display: ['none', 'table-cell']
     }
   })
 );
 
 const StyledCell = styled('td')(({ theme, align }) =>
   mq({
-    padding: `${theme.spacingUnit}`,
+    padding: `${theme.spacingUnit}px`,
     textAlign: ['left', align]
   })
 );
-
-const StyledCheckbox = styled('input')({
-  // TODO: Style Me!
-});
 
 const CardItem = ({
   handleChange,
@@ -69,20 +65,15 @@ const CardItem = ({
   }
 }) => {
   return (
-    <StyledWrapper isSelected={isSelected}>
-      <StyledCell>
-        <StyledCheckbox
-          type="checkbox"
-          onChange={() => {
-            handleChange(id);
-          }}
-        />
-      </StyledCell>
+    <StyledWrapper isSelected={isSelected} onClick={() => handleChange(id)}>
       <StyledCell>{name}</StyledCell>
       <StyledCell align="right">{credit_gbp}</StyledCell>
       <StyledCell align="right">{apr_percent}%</StyledCell>
       <StyledCell>{balance_transfer_offer_duration} Months</StyledCell>
       <StyledCell>{purchase_offer_duration} Months</StyledCell>
+      <StyledCell>
+        <input type="checkbox" checked={isSelected} />
+      </StyledCell>
     </StyledWrapper>
   );
 };

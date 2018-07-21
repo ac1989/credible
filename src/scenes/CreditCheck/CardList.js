@@ -3,9 +3,10 @@ import styled from 'react-emotion';
 import { mq } from 'styles/breakpoints';
 import CardItem from './CardItem';
 
-const StyledTable = styled('table')(({}) =>
+const StyledTable = styled('table')(({ theme }) =>
   mq({
-    width: ['100%', '600px', '920px'],
+    width: ['100%', '658px', '920px'],
+    margin: `${theme.spacingUnit * 2}px 0`,
     thead: {
       display: ['block', 'table-header-group']
     },
@@ -114,10 +115,7 @@ class CardList extends Component {
     return (
       <StyledTable>
         <thead>
-          <tr align="left">
-            <th />
-            {this.renderTableHeaders()}
-          </tr>
+          <tr align="left">{this.renderTableHeaders()}</tr>
         </thead>
         <tbody>
           {cards
