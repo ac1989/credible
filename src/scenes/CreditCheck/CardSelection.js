@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import CardList from './CardList';
+import CardTable from './CardTable';
 
 const StyledWrapper = styled('div')(({ theme }) => ({
   minHeight: '100vh',
@@ -55,7 +55,7 @@ export default class CardSelection extends Component {
     return (
       <StyledWrapper>
         <StyledH2>You are eligible for: </StyledH2>
-        <CardList
+        <CardTable
           cards={cards}
           selectedCardIds={this.state.selectedCardIds}
           handleChange={this.toggleSelect}

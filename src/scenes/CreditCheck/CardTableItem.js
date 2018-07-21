@@ -52,7 +52,7 @@ const StyledCell = styled('td')(({ theme, align }) =>
   })
 );
 
-const CardItem = ({
+const CardTableItem = ({
   handleChange,
   isSelected,
   card: {
@@ -72,10 +72,10 @@ const CardItem = ({
       <StyledCell>{balance_transfer_offer_duration} Months</StyledCell>
       <StyledCell>{purchase_offer_duration} Months</StyledCell>
       <StyledCell>
-        <input type="checkbox" checked={isSelected} />
+        <input type="checkbox" checked={isSelected || false} />
       </StyledCell>
     </StyledWrapper>
   );
 };
 
-export default CardItem;
+export default CardTableItem;

@@ -8,10 +8,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case TYPES.FETCH_ALL_CARDS:
-      return { ...state, status: 'FETCHING_CARDS' };
-    case TYPES.FETCH_ALL_CARDS_SUCCESS:
-      return { status: 'CARD_SELECTION', cards: action.cards };
     case TYPES.FETCH_ELIGIBLE_CARDS:
       return { ...state, status: 'FETCHING_CARDS' };
     case TYPES.FETCH_ELIGIBLE_CARDS_SUCCESS:

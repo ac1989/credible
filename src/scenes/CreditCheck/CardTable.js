@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 import { mq } from 'styles/breakpoints';
-import CardItem from './CardItem';
+import CardTableItem from './CardTableItem';
 
 const StyledTable = styled('table')(({ theme }) =>
   mq({
@@ -51,7 +51,7 @@ const dataKeysToHeaderTexts = {
   purchase_offer_duration: 'Purchase Offer'
 };
 
-class CardList extends Component {
+class CardTable extends Component {
   state = {
     sort_by: 'credit_gbp',
     sort_direction: 'descending'
@@ -120,7 +120,7 @@ class CardList extends Component {
           {cards
             .sort(this.sortFunction)
             .map(card => (
-              <CardItem
+              <CardTableItem
                 key={card.name}
                 card={card}
                 handleChange={handleChange}
@@ -133,4 +133,4 @@ class CardList extends Component {
   }
 }
 
-export default CardList;
+export default CardTable;
