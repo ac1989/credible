@@ -10,8 +10,8 @@ describe('Credit Check reducer', () => {
     });
   });
 
-  it('should set status to FETCHING_CARDS on fetchAllCards', () => {
-    expect(reducer(undefined, { type: TYPES.FETCH_ALL_CARDS })).toEqual({
+  it('should set status to FETCHING_CARDS on fetchEligibleCards', () => {
+    expect(reducer(undefined, { type: TYPES.FETCH_ELIGIBLE_CARDS })).toEqual({
       status: 'FETCHING_CARDS',
       cards: []
     });
@@ -21,7 +21,7 @@ describe('Credit Check reducer', () => {
     expect(
       reducer(
         { status: 'FETCHING_CARDS', cards: [] },
-        { type: TYPES.FETCH_ALL_CARDS_SUCCESS }
+        { type: TYPES.FETCH_ELIGIBLE_CARDS_SUCCESS }
       ).status
     ).toEqual('CARD_SELECTION');
   });
@@ -31,7 +31,7 @@ describe('Credit Check reducer', () => {
     expect(
       reducer(
         { status: 'FETCHING_CARDS', cards: [] },
-        { type: TYPES.FETCH_ALL_CARDS_SUCCESS, cards: expectedCards }
+        { type: TYPES.FETCH_ELIGIBLE_CARDS_SUCCESS, cards: expectedCards }
       ).cards
     ).toEqual(expectedCards);
   });

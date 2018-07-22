@@ -7,7 +7,7 @@ export const StyledForm = styled('form')(({ theme }) =>
     flexDirection: 'column',
     width: ['100%', '658px'],
     margin: 'auto',
-    padding: [`${theme.spacingUnit * 4}px 0`, `${theme.spacingUnit * 4}px`]
+    padding: [`${theme.spacingUnit * 4}px 0`, `0 ${theme.spacingUnit * 4}px`]
   })
 );
 

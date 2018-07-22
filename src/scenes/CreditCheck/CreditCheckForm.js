@@ -76,21 +76,21 @@ let CreditCheckForm = ({ handleSubmit }) => {
         <InputLabel label={'Date of Birth'} />
         <FlexRow width={280}>
           <Field
-            name="dOBDay"
+            name="dob_day"
             component={renderTextField}
             placeholder="DD"
             width={60}
             normalize={normalizeDD}
           />
           <Field
-            name="dOBMonth"
+            name="dob_month"
             component={renderTextField}
             placeholder="MM"
             width={60}
             normalize={normalizeMM}
           />
           <Field
-            name="dOBYear"
+            name="dob_year"
             component={renderTextField}
             placeholder="YYYY"
             width={128}
@@ -147,7 +147,7 @@ let CreditCheckForm = ({ handleSubmit }) => {
 
 CreditCheckForm = reduxForm({
   form: 'creditCheck',
-  // validate,
+  validate,
   destroyOnUnmount: false,
   initialValues: {
     annual_income: '15000',

@@ -26,6 +26,16 @@ export const validate = values => {
     errors.last_name = 'You must provide a last name.';
   }
 
+  if (!dob_day) {
+    errors.dob_day = 'Required';
+  }
+  if (!dob_day) {
+    errors.dob_month = 'Required';
+  }
+  if (!dob_day) {
+    errors.dob_year = 'Required';
+  }
+
   if (!postcode) {
     errors.postcode = 'You must provide a postcode';
   }

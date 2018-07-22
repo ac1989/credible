@@ -10,8 +10,12 @@ import CardSelection from './CardSelection';
 const StyledRoot = styled('div')(({ theme }) =>
   mq({
     position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     margin: 'auto',
-    width: ['280px', '658px', '920px']
+    width: ['280px', '658px', '920px'],
+    minHeight: '100vh'
   })
 );
 
