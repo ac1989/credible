@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import { mq } from 'styles/breakpoints';
 import * as actions from './actions';
-import CreditCheckForm from './CreditCheckForm';
+import CreditCheckForm from './components/CreditCheckForm';
 import TriDotLoader from 'components/TriDotLoader';
-import CardSelection from './CardSelection';
+import CardSelection from './components/CardSelection';
 
 const StyledRoot = styled('div')(({ theme }) =>
   mq({

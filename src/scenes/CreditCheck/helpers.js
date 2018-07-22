@@ -1,8 +1,11 @@
+import { differenceInYears } from 'date-fns';
+
 export const validate = values => {
   const {
     title,
     first_name,
     last_name,
+    date_of_birth,
     dob_day,
     dob_month,
     dob_year,
@@ -26,14 +29,42 @@ export const validate = values => {
     errors.last_name = 'You must provide a last name.';
   }
 
+  const date = dob_day + dob_month + dob_year;
+
+  if (date.length < 8) {
+    errors.date_of_birth = 'Invalid Date';
+  }
+
+  const yearsFromNow = differenceInYears(
+    new Date(),
+    new Date(dob_year, dob_month - 1, dob_day)
+  );
+  console.log(yearsFromNow);
+
+  if (yearsFromNow > 100) {
+    errors.dob_year = 'You are too old';
+    errors.date_of_birth = 'You are too old';
+  }
+
+  if (yearsFromNow < 18) {
+    errors.dob_year = 'You are too young';
+    errors.date_of_birth = 'You are too young';
+  }
+
   if (!dob_day) {
     errors.dob_day = 'Required';
   }
+
   if (!dob_month) {
     errors.dob_month = 'Required';
   }
+
   if (!dob_year) {
     errors.dob_year = 'Required';
+  }
+
+  if (dob_year.length < 4) {
+    errors.dob_year = 'Invalid Year';
   }
 
   if (!postcode) {

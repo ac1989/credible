@@ -1,14 +1,16 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, reduxForm, getFormSyncErrors, getFormMeta } from 'redux-form';
 import {
   normalizePostcode,
   normalizeOnlyNum,
   normalizeDD,
   normalizeMM,
   normalizeYYYY
-} from './normalizations';
-import { validate } from './helpers';
+} from '../normalizations';
+import { validate } from '../helpers';
 import InputLabel from 'components/InputLabel';
+import Input from 'components/Input';
 import TextField from 'components/TextField';
 import FormControl from 'components/FormControl';
 import Select from 'components/Select';
@@ -17,9 +19,8 @@ import {
   StyledForm,
   StyledFormLabel,
   StyledFormSection,
-  // StyledFormTitle,
   FlexRow
-} from './index.style';
+} from './CreditCheckForm.style';
 
 const renderTextField = ({
   input,
@@ -30,10 +31,13 @@ const renderTextField = ({
   <TextField
     label={label}
     input={input}
-    touched={touched}
     error={touched ? error : null}
     {...rest}
   />
+);
+
+const renderTextInput = ({ input, meta: { touched, error }, width }) => (
+  <Input input={input} error={touched ? error : null} width={width} />
 );
 
 const renderSelect = ({ input, children, meta: { touched, error } }) => {
@@ -42,7 +46,7 @@ const renderSelect = ({ input, children, meta: { touched, error } }) => {
   );
 };
 
-let CreditCheckForm = ({ handleSubmit }) => {
+let CreditCheckForm = ({ handleSubmit, formSyncErrors, formMeta }) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       {/* <StyledFormTitle>CREDIT CHECK</StyledFormTitle> */}
@@ -73,29 +77,40 @@ let CreditCheckForm = ({ handleSubmit }) => {
             width={280}
           />
         </FlexRow>
-        <InputLabel label={'Date of Birth'} />
-        <FlexRow width={280}>
-          <Field
-            name="dob_day"
-            component={renderTextField}
-            placeholder="DD"
-            width={60}
-            normalize={normalizeDD}
-          />
-          <Field
-            name="dob_month"
-            component={renderTextField}
-            placeholder="MM"
-            width={60}
-            normalize={normalizeMM}
-          />
-          <Field
-            name="dob_year"
-            component={renderTextField}
-            placeholder="YYYY"
-            width={128}
-            normalize={normalizeYYYY}
-          />
+        <FlexRow>
+          <div
+            style={{ width: '280px', display: 'flex', flexDirection: 'column' }}
+          >
+            <InputLabel label="Date of Birth" />
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Field
+                name="dob_day"
+                component={renderTextInput}
+                placeholder="DD"
+                width={60}
+                normalize={normalizeDD}
+              />
+              <Field
+                name="dob_month"
+                component={renderTextInput}
+                placeholder="MM"
+                width={60}
+                normalize={normalizeMM}
+              />
+              <Field
+                name="dob_year"
+                component={renderTextInput}
+                placeholder="YYYY"
+                width={128}
+                normalize={normalizeYYYY}
+              />
+            </div>
+            <div style={{ color: 'red', fontSize: '14px' }}>
+              {formMeta.dob_year &&
+                formMeta.dob_year.touched &&
+                formSyncErrors.date_of_birth}
+            </div>
+          </div>
         </FlexRow>
       </StyledFormSection>
       <StyledFormSection>
@@ -134,7 +149,6 @@ let CreditCheckForm = ({ handleSubmit }) => {
               <option value="fullTime">Full Time Employment</option>
               <option value="partTime">Part Time Employment</option>
               <option value="student">Student</option>
-              <option value="unemployed">Unemployed</option>
             </Field>
           </FormControl>
         </FlexRow>
@@ -145,9 +159,19 @@ let CreditCheckForm = ({ handleSubmit }) => {
   );
 };
 
+CreditCheckForm = connect(state => ({
+  formSyncErrors: getFormSyncErrors('creditCheck')(state),
+  formMeta: getFormMeta('creditCheck')(state)
+}))(CreditCheckForm);
+
 CreditCheckForm = reduxForm({
   form: 'creditCheck',
-  validate
+  validate,
+  initialValues: {
+    dob_day: '',
+    dob_month: '',
+    dob_year: ''
+  }
 })(CreditCheckForm);
 
 export default CreditCheckForm;

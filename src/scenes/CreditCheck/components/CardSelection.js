@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
+import { mq } from 'styles/breakpoints';
 import CardTable from './CardTable';
 
 const StyledWrapper = styled('div')(({ theme }) => ({
@@ -13,6 +14,13 @@ const StyledWrapper = styled('div')(({ theme }) => ({
 const StyledH2 = styled('h2')(({ theme }) => ({
   color: theme.colours.formDefault
 }));
+
+const StyledHelperText = styled('span')(
+  mq({
+    margin: `0.5em 0`,
+    display: ['""', 'none']
+  })
+);
 
 const StyledSpan = styled('span')(({ theme }) => ({
   color: theme.colours.formFocus
@@ -55,6 +63,7 @@ export default class CardSelection extends Component {
     return (
       <StyledWrapper>
         <StyledH2>You are eligible for: </StyledH2>
+        <StyledHelperText>Mobile? Tap a card to select it.</StyledHelperText>
         <CardTable
           cards={cards}
           selectedCardIds={this.state.selectedCardIds}

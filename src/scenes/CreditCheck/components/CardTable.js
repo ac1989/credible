@@ -6,7 +6,7 @@ import CardTableItem from './CardTableItem';
 const StyledTable = styled('table')(({ theme }) =>
   mq({
     width: ['100%', '658px', '920px'],
-    margin: `${theme.spacingUnit * 2}px 0`,
+    margin: `${theme.spacingUnit * 4}px 0`,
     thead: {
       display: ['block', 'table-header-group']
     },

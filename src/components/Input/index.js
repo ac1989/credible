@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
 
-const StyledInput = styled('input')(({ theme, error }) => ({
-  width: '100%',
+const StyledInput = styled('input')(({ theme, error, width }) => ({
+  width: width || '100%',
   height: `${20 + theme.spacingUnit * 2}px`,
   fontSize: '1.2rem',
   background: 'white',
@@ -16,8 +16,15 @@ const StyledInput = styled('input')(({ theme, error }) => ({
 
 class Input extends Component {
   render() {
-    const { input, placeholder, error } = this.props;
-    return <StyledInput {...input} placeholder={placeholder} error={error} />;
+    const { input, placeholder, error, width } = this.props;
+    return (
+      <StyledInput
+        {...input}
+        placeholder={placeholder}
+        error={error}
+        width={width}
+      />
+    );
   }
 }
 
