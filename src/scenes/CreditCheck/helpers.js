@@ -29,10 +29,10 @@ export const validate = values => {
   if (!dob_day) {
     errors.dob_day = 'Required';
   }
-  if (!dob_day) {
+  if (!dob_month) {
     errors.dob_month = 'Required';
   }
-  if (!dob_day) {
+  if (!dob_year) {
     errors.dob_year = 'Required';
   }
 

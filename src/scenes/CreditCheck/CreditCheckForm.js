@@ -123,7 +123,7 @@ let CreditCheckForm = ({ handleSubmit }) => {
           <Field
             name="annual_income"
             component={renderTextField}
-            label="Annual Income"
+            label="Annual Income (£)"
             width={280}
             normalize={normalizeOnlyNum}
           />
@@ -147,12 +147,7 @@ let CreditCheckForm = ({ handleSubmit }) => {
 
 CreditCheckForm = reduxForm({
   form: 'creditCheck',
-  validate,
-  destroyOnUnmount: false,
-  initialValues: {
-    annual_income: '15000',
-    employment_status: 'student'
-  }
+  validate
 })(CreditCheckForm);
 
 export default CreditCheckForm;
