@@ -5,12 +5,6 @@ export const validate = values => {
 
   const errors = {};
 
-  for (let value in values) {
-    if (!values[value]) {
-      errors[value] = 'Required';
-    }
-  }
-
   // DATE VALIDATIONS
   const date = dob_day + dob_month + dob_year;
 
@@ -31,6 +25,13 @@ export const validate = values => {
   if (yearsFromNow < 18) {
     errors.dob_year = 'You are too young';
     errors.date_of_birth = 'You are too young';
+  }
+
+  // Require All Fields
+  for (let value in values) {
+    if (!values[value]) {
+      errors[value] = 'Required';
+    }
   }
 
   return errors;
