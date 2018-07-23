@@ -1,5 +1,6 @@
 {
   "name": "credible",
+  "homepage": "https://ac1989.github.io/credible/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
