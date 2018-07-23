@@ -6,8 +6,6 @@ const StyledWrapper = styled('tr')(({ theme, isSelected }) =>
   mq({
     width: ['280px', '100%'],
     position: 'relative',
-    // display: ['flex', 'table-row'],
-    // flexDirection: 'column',
     background: isSelected ? '#9de89f;' : 'white',
     marginBottom: [`${theme.spacingUnit}`, 0],
     td: {
@@ -17,7 +15,6 @@ const StyledWrapper = styled('tr')(({ theme, isSelected }) =>
     'td:before': {
       display: ['block', 'none'],
       position: 'absolute',
-      /* Top/left values mimic padding */
       top: '6px',
       left: '6px',
       width: '45%',
