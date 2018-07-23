@@ -24,7 +24,7 @@ export const customers = [
     first_name: 'Trevor',
     last_name: 'Rieck',
     date_of_birth: new Date(1990, 8, 7),
-    annual_income: 15000,
+    annual_income: 16000,
     employment_status: 'Part Time Employed',
     house_number: 343,
     postcode: 'TS25 2NF'
