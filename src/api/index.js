@@ -26,6 +26,6 @@ const eligibleCards = criteria => {
 // emulating the db only returning cards that match;
 export const mockFetchEligibleCards = async criteria => {
   const timeout = ms => new Promise(res => setTimeout(res, ms));
-  await timeout(200);
+  await timeout(1200);
   return { data: eligibleCards(criteria) };
 };

@@ -8,7 +8,7 @@ import {
   normalizeMM,
   normalizeYYYY
 } from '../normalizations';
-import { validate } from '../helpers';
+import { validate } from '../validations';
 import InputLabel from 'components/InputLabel';
 import Input from 'components/Input';
 import TextField from 'components/TextField';
@@ -30,14 +30,14 @@ const renderTextField = ({
 }) => (
   <TextField
     label={label}
-    input={input}
     error={touched ? error : null}
+    {...input}
     {...rest}
   />
 );
 
 const renderTextInput = ({ input, meta: { touched, error }, width }) => (
-  <Input input={input} error={touched ? error : null} width={width} />
+  <Input {...input} error={touched ? error : null} width={width} />
 );
 
 const renderSelect = ({ input, children, meta: { touched, error } }) => {
@@ -49,7 +49,6 @@ const renderSelect = ({ input, children, meta: { touched, error } }) => {
 let CreditCheckForm = ({ handleSubmit, formSyncErrors, formMeta }) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
-      {/* <StyledFormTitle>CREDIT CHECK</StyledFormTitle> */}
       <StyledFormSection>
         <FlexRow>
           <FormControl width={88}>
@@ -108,7 +107,7 @@ let CreditCheckForm = ({ handleSubmit, formSyncErrors, formMeta }) => {
             <div style={{ color: 'red', fontSize: '14px' }}>
               {formMeta.dob_year &&
                 formMeta.dob_year.touched &&
-                formSyncErrors.date_of_birth}
+                formSyncErrors.dob_year}
             </div>
           </div>
         </FlexRow>
@@ -168,9 +167,16 @@ CreditCheckForm = reduxForm({
   form: 'creditCheck',
   validate,
   initialValues: {
+    title: '',
+    first_name: '',
+    last_name: '',
     dob_day: '',
     dob_month: '',
-    dob_year: ''
+    dob_year: '',
+    postcode: '',
+    house_number: '',
+    annual_income: '',
+    employment_status: ''
   }
 })(CreditCheckForm);
 

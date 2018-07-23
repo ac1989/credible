@@ -63,7 +63,7 @@ export default class CardSelection extends Component {
     return (
       <StyledWrapper>
         <StyledH2>You are eligible for: </StyledH2>
-        <StyledHelperText>Mobile? Tap a card to select it.</StyledHelperText>
+        <StyledHelperText>Tap cards to select them.</StyledHelperText>
         <CardTable
           cards={cards}
           selectedCardIds={this.state.selectedCardIds}
