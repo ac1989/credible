@@ -36,8 +36,8 @@ const renderTextField = ({
   />
 );
 
-const renderTextInput = ({ input, meta: { touched, error }, width }) => (
-  <Input {...input} error={touched ? error : null} width={width} />
+const renderTextInput = ({ input, meta: { touched, error }, ...rest }) => (
+  <Input {...input} error={touched ? error : null} {...rest} />
 );
 
 const renderSelect = ({ input, children, meta: { touched, error } }) => {
