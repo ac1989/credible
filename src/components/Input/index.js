@@ -16,15 +16,8 @@ const StyledInput = styled('input')(({ theme, error, width }) => ({
 
 class Input extends Component {
   render() {
-    const { placeholder, error, width, ...rest } = this.props;
-    return (
-      <StyledInput
-        placeholder={placeholder}
-        error={error}
-        width={width}
-        {...rest}
-      />
-    );
+    const { ...props } = this.props;
+    return <StyledInput {...props} />;
   }
 }
 

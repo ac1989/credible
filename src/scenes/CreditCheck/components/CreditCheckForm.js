@@ -46,7 +46,12 @@ const renderSelect = ({ input, children, meta: { touched, error } }) => {
   );
 };
 
-let CreditCheckForm = ({ handleSubmit, formSyncErrors, formMeta }) => {
+let CreditCheckForm = ({
+  handleSubmit,
+  formSyncErrors,
+  submitting,
+  formMeta
+}) => {
   return (
     <StyledForm onSubmit={handleSubmit}>
       <StyledFormSection>
@@ -153,7 +158,7 @@ let CreditCheckForm = ({ handleSubmit, formSyncErrors, formMeta }) => {
         </FlexRow>
       </StyledFormSection>
       <br />
-      <Button type="submit" text={'CHECK ELIGIBILITY'} />
+      <Button type="submit" text={'CHECK ELIGIBILITY'} disabled={submitting} />
     </StyledForm>
   );
 };

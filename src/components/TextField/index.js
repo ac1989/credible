@@ -10,11 +10,11 @@ const StyledTextField = styled('div')(({ theme, width }) => ({
   width: `${width}px`
 }));
 
-const TextField = ({ label, placeholder, width, error, ...rest }) => {
+const TextField = ({ label, width, error, ...input }) => {
   return (
     <StyledTextField width={width}>
       {label && <InputLabel label={label} />}
-      <Input placeholder={placeholder} error={error} {...rest} />
+      <Input error={error} {...input} />
       {error && <span style={{ fontSize: '14px', color: 'red' }}>{error}</span>}
     </StyledTextField>
   );
