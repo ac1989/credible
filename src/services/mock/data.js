@@ -31,7 +31,7 @@ export const cards = [
     purchase_offer_duration: 6,
     credit_gbp: 3000,
     criteria: {
-      annual_income: 15000,
+      annual_income: 16000,
       employment_status: 'any'
     }
   }
